@@ -18,3 +18,11 @@ data "aws_ami" "ubuntu" {
 
     owners = ["099720109477"]
 }
+
+data "template_file" "user_data" {
+    template = "${file("${path.module}/scripts/user_data.sh")}"
+
+    vars {
+        web_server_address = "${var.server_hostname}"
+    }
+}

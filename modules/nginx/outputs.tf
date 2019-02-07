@@ -2,6 +2,6 @@ output "ip_address" {
     value = "${aws_instance.nginx_instance.public_ip}"
 }
 
-output "hostname" {
+output "host_name" {
     value = "${aws_instance.nginx_instance.public_dns}"
 }

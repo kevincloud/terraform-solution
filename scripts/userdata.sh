@@ -7,6 +7,8 @@ apt install -y nginx
 apt install -y php php-fpm php-common php-cli
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
+wget https://raw.githubusercontent.com/kevincloud/terraform-solution/master/scripts/web_server
+wget https://raw.githubusercontent.com/kevincloud/terraform-solution/master/scripts/index.php
 cp ./web_server /etc/nginx/sites-available/
 cp ./index.php /var/www/html/
 chown -R www-data:www-data /var/www/html
