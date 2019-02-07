@@ -44,7 +44,8 @@ resource "aws_security_group" "webserver-sg" {
 }
 
 module "nginx" {
-    source = "modules/nginx"
+    source  = "app.terraform.io/tfe-project-gcp/nginx/aws"
+    version = "1.0.1"
 
     vpc_id = "${data.aws_vpc.mainvpc.id}"
     server_hostname = "${aws_instance.webserver.private_ip}"
