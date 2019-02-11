@@ -47,6 +47,8 @@ module "nginx-east" {
     source  = "app.terraform.io/kevinspace/nginx-east/aws"
     version = "1.0.2"
 
+    aws_access_key = "${var.aws_access_key}"
+    aws_secret_key = "${var.aws_secret_key}"
     server_hostname = "${aws_instance.webserver.public_ip}"
 }
 
@@ -54,5 +56,7 @@ module "nginx-west" {
     source  = "app.terraform.io/kevinspace/nginx-west/aws"
     version = "1.0.1"
 
+    aws_access_key = "${var.aws_access_key}"
+    aws_secret_key = "${var.aws_secret_key}"
     server_hostname = "${aws_instance.webserver.public_ip}"
 }
