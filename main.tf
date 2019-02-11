@@ -4,11 +4,6 @@ provider "aws" {
     region = "us-east-1"
 }
 
-provider "aws" {
-    alias = "west"
-    region = "us-west-2"
-}
-
 resource "aws_instance" "webserver" {
     ami = "${data.aws_ami.ubuntu.id}"
     instance_type = "t2.micro"
@@ -49,19 +44,15 @@ resource "aws_security_group" "webserver-sg" {
 }
 
 module "nginx-east" {
-    source  = "app.terraform.io/kevinspace/nginx/aws"
-    version = "1.0.1"
+    source  = "app.terraform.io/kevinspace/nginx-east/aws"
+    version = "1.0.2"
 
-    provider = "aws"
-    //vpc_id = "${data.aws_vpc.mainvpc.id}"
-    server_hostname = "${aws_instance.webserver.private_ip}"
+    server_hostname = "${aws_instance.webserver.public_ip}"
 }
 
 module "nginx-west" {
-    source  = "app.terraform.io/kevinspace/nginx/aws"
+    source  = "app.terraform.io/kevinspace/nginx-west/aws"
     version = "1.0.1"
 
-    provider = "aws.west"
-    //vpc_id = "${data.aws_vpc.mainvpc.id}"
-    server_hostname = "${aws_instance.webserver.private_ip}"
+    server_hostname = "${aws_instance.webserver.public_ip}"
 }
