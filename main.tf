@@ -45,7 +45,7 @@ resource "aws_security_group" "webserver-sg" {
 
 module "nginx-east" {
     source  = "app.terraform.io/kevinspace/nginx-east/aws"
-    version = "1.0.2"
+    version = "1.0.3"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
@@ -54,7 +54,7 @@ module "nginx-east" {
 
 module "nginx-west" {
     source  = "app.terraform.io/kevinspace/nginx-west/aws"
-    version = "1.0.1"
+    version = "1.0.2"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
