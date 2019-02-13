@@ -8,7 +8,6 @@ resource "aws_instance" "webserver" {
     ami = "${data.aws_ami.ubuntu.id}"
     instance_type = "t2.micro"
     vpc_security_group_ids = ["${aws_security_group.webserver-sg.id}"]
-    key_name = "kevin-sedemos"
     user_data = "${data.template_file.user_data.rendered}"
     
     tags = {
@@ -43,6 +42,33 @@ resource "aws_security_group" "webserver-sg" {
     }
 }
 
+module "peered-vpcs" {
+  source  = "app.terraform.io/kevinspace/peered-vpcs/aws"
+  version = "1.0.1"
+
+    aws_access_key = "${var.aws_access_key}"
+    aws_secret_key = "${var.aws_secret_key}"
+}
+
+module "nginx-cdn" {
+    source  = "app.terraform.io/kevinspace/nginx-cdn/aws"
+    version = "0.1.0"
+
+    aws_access_key = "${var.aws_access_key}"
+    aws_secret_key = "${var.aws_secret_key}"
+    server_hostname = "${aws_instance.webserver.public_ip}"
+    us-east = true
+    us-west = true
+    eu-west = true
+    us-east-vpc = "${module.peered-vpcs.vpc-us-east}"
+    us-east-subnet = "${module.peered-vpcs.us-east-public-subnet}"
+    us-west-vpc = "${module.peered-vpcs.vpc-us-west}"
+    us-west-subnet = "${module.peered-vpcs.us-west-public-subnet}"
+    eu-west-vpc = "${module.peered-vpcs.vpc-eu-west}"
+    eu-west-subnet = "${module.peered-vpcs.eu-west-public-subnet}"
+}
+
+/*
 module "nginx-east" {
     source  = "app.terraform.io/kevinspace/nginx-east/aws"
     version = "1.0.3"
@@ -60,3 +86,4 @@ module "nginx-west" {
     aws_secret_key = "${var.aws_secret_key}"
     server_hostname = "${aws_instance.webserver.public_ip}"
 }
+*/
