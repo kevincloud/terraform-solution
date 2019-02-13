@@ -43,8 +43,8 @@ resource "aws_security_group" "webserver-sg" {
 }
 
 module "peered-vpcs" {
-  source  = "app.terraform.io/kevinspace/peered-vpcs/aws"
-  version = "1.0.1"
+    source  = "app.terraform.io/kevinspace/peered-vpcs/aws"
+    version = "1.0.1"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"

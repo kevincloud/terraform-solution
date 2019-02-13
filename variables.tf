@@ -6,6 +6,7 @@ variable "aws_secret_key" {
     description = "AWS secret key"
 }
 
+/*
 variable "us-east-vpc" {
     description = "VPC for us-east-1"
 }
@@ -29,4 +30,4 @@ variable "eu-west-vpc" {
 variable "eu-west-subnet" {
     description = "Subnet for eu-west-1"
 }
-
+*/
