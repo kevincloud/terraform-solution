@@ -24,6 +24,6 @@ data "template_file" "user_data" {
 }
 
 data "aws_route53_zone" "hashizone" {
-    name            = "hashidemos.com."
+    name            = "hashidemos.io."
     private_zone    = false
 }
