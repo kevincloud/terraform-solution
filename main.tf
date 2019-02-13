@@ -52,7 +52,7 @@ module "peered-vpcs" {
 
 module "nginx-cdn" {
     source  = "app.terraform.io/kevinspace/nginx-cdn/aws"
-    version = "0.1.1"
+    version = "0.1.2"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
