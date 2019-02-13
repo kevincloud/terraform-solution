@@ -4,11 +4,20 @@ provider "aws" {
     region = "us-east-1"
 }
 
+module "peered-vpcs" {
+    source  = "app.terraform.io/kevinspace/peered-vpcs/aws"
+    version = "1.0.1"
+
+    aws_access_key = "${var.aws_access_key}"
+    aws_secret_key = "${var.aws_secret_key}"
+}
+
 resource "aws_instance" "webserver" {
     ami = "${data.aws_ami.ubuntu.id}"
     instance_type = "t2.micro"
     vpc_security_group_ids = ["${aws_security_group.webserver-sg.id}"]
     user_data = "${data.template_file.user_data.rendered}"
+    subnet_id = "${module.peered-vpcs.us-east-private-subnet}"
     
     tags = {
         Name = "kevin-temp-ws"
@@ -18,7 +27,7 @@ resource "aws_instance" "webserver" {
 resource "aws_security_group" "webserver-sg" {
     name = "webserver-sg"
     description = "webserver security group"
-    vpc_id = "${data.aws_vpc.mainvpc.id}"
+    vpc_id = "${module.peered-vpcs.vpc-us-east}"
 
     ingress {
         from_port = 22
@@ -42,14 +51,6 @@ resource "aws_security_group" "webserver-sg" {
     }
 }
 
-module "peered-vpcs" {
-    source  = "app.terraform.io/kevinspace/peered-vpcs/aws"
-    version = "1.0.1"
-
-    aws_access_key = "${var.aws_access_key}"
-    aws_secret_key = "${var.aws_secret_key}"
-}
-
 module "nginx-cdn" {
     source  = "app.terraform.io/kevinspace/nginx-cdn/aws"
     version = "0.1.3"
@@ -68,22 +69,21 @@ module "nginx-cdn" {
     eu-west-subnet = "${module.peered-vpcs.eu-west-public-subnet}"
 }
 
-/*
-module "nginx-east" {
-    source  = "app.terraform.io/kevinspace/nginx-east/aws"
-    version = "1.0.3"
+resource "aws_route53_record" "privatemodules" {
+    zone_id = "${data.aws_route53_zone.hashizone}"
+    name = "privatemodules.hashidemos.io"
+    type = "A"
+    ttl = "300"
 
-    aws_access_key = "${var.aws_access_key}"
-    aws_secret_key = "${var.aws_secret_key}"
-    server_hostname = "${aws_instance.webserver.public_ip}"
+    geolocation_routing_policy {
+        continent = "NA"
+        country = "US"
+    }
+
+    set_identifier = "geomodule"
+    records = [
+        "${module.nginx-cdn.us-east-ip}",
+        "${module.nginx-cdn.us-west-ip}",
+        "${module.nginx-cdn.eu-west-ip}"
+    ]
 }
-
-module "nginx-west" {
-    source  = "app.terraform.io/kevinspace/nginx-west/aws"
-    version = "1.0.3"
-
-    aws_access_key = "${var.aws_access_key}"
-    aws_secret_key = "${var.aws_secret_key}"
-    server_hostname = "${aws_instance.webserver.public_ip}"
-}
-*/

@@ -1,7 +1,3 @@
-data "aws_vpc" "mainvpc" {
-  default = true
-}
-
 data "aws_ami" "ubuntu" {
     most_recent = true
 
@@ -25,4 +21,8 @@ data "aws_ami" "ubuntu" {
 
 data "template_file" "user_data" {
     template = "${file("${path.module}/scripts/user_data.sh")}"
+}
+
+data "aws_route53_zone" "hashizone" {
+    name = "hashidemos.com."
 }
