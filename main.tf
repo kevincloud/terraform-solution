@@ -57,7 +57,7 @@ module "nginx-cdn" {
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
-    server_hostname = "${aws_instance.webserver.public_ip}"
+    server_hostname = "${aws_instance.webserver.private_ip}"
     us-east = true
     us-west = true
     eu-west = true
