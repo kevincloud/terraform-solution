@@ -70,7 +70,7 @@ module "nginx-cdn" {
 }
 
 resource "aws_route53_record" "privatemodules" {
-    zone_id = "${data.aws_route53_zone.hashizone}"
+    zone_id = "${data.aws_route53_zone.hashizone.zone_id}"
     name = "privatemodules.hashidemos.io"
     type = "A"
     ttl = "300"
