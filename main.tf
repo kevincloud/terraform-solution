@@ -77,7 +77,7 @@ resource "aws_route53_record" "privatemodules" {
 
     geolocation_routing_policy {
         continent = "NA"
-        country = "US"
+        country = "*"
     }
 
     set_identifier = "geomodule"
