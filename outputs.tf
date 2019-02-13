@@ -1,15 +1,24 @@
-output "ip_address_east" {
-    value = "${module.nginx-east.ip_address}"
+output "us-east-ip" {
+    value = "${module.nginx-cdn.us-east-ip}"
 }
 
-output "host_name_east" {
-    value = "${module.nginx-east.host_name}"
+output "us-east-host" {
+    value = "${module.nginx-cdn.us-east-host}"
 }
 
-output "ip_address_west" {
-    value = "${module.nginx-west.ip_address}"
+output "us-west-ip" {
+    value = "${module.nginx-cdn.us-west-ip}"
 }
 
-output "host_name_west" {
-    value = "${module.nginx-west.host_name}"
+output "us-west-host" {
+    value = "${module.nginx-cdn.us-west-host}"
 }
+
+output "eu-west-ip" {
+    value = "${module.nginx-cdn.eu-west-ip}"
+}
+
+output "eu-west-host" {
+    value = "${module.nginx-cdn.eu-west-host}"
+}
+
