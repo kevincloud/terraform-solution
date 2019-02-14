@@ -6,7 +6,7 @@ provider "aws" {
 
 module "peered-vpcs" {
     source  = "app.terraform.io/kevinspace/peered-vpcs/aws"
-    version = "1.0.7"
+    version = "1.0.8"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
