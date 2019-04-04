@@ -22,3 +22,6 @@ output "eu-west-host" {
     value = "${module.nginx-cdn.eu-west-host}"
 }
 
+output "webserver-private-ip" {
+    value = "${aws_instance.webserver.0.private_ip}"
+}
