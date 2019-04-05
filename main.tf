@@ -6,7 +6,7 @@ provider "aws" {
 
 module "peered-vpcs" {
     source  = "app.terraform.io/kevinspace/peered-vpcs/aws"
-    version = "1.0.11"
+    version = "1.0.12"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
@@ -54,7 +54,7 @@ resource "aws_security_group" "webserver-sg" {
 
 module "nginx-cdn" {
     source  = "app.terraform.io/kevinspace/nginx-cdn/aws"
-    version = "0.1.7"
+    version = "0.1.8"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
