@@ -15,7 +15,7 @@ module "peered-vpcs" {
 resource "aws_instance" "webserver" {
     ami = "${data.aws_ami.ubuntu.id}"
     instance_type = "t2.micro"
-    key_name = "kevin-sedemos"
+    key_name = "${var.key_pair_use}"
     vpc_security_group_ids = ["${aws_security_group.webserver-sg.id}"]
     user_data = "${data.template_file.user_data.rendered}"
     subnet_id = "${module.peered-vpcs.us-east-private-subnet}"
@@ -62,9 +62,9 @@ module "nginx-cdn" {
     us-east = true
     us-west = true
     eu-west = true
-    us-east-keypair = "kevin-sedemos"
-    us-west-keypair = "kevin-sedemos-or"
-    eu-west-keypair = "kevin-sedemos-ir"
+    us-east-keypair = "${var.key_pair_use}"
+    us-west-keypair = "${var.key_pair_usw}"
+    eu-west-keypair = "${var.key_pair_euw}"
     us-east-vpc = "${module.peered-vpcs.vpc-us-east}"
     us-east-subnet = "${module.peered-vpcs.us-east-public-subnet}"
     us-west-vpc = "${module.peered-vpcs.vpc-us-west}"
