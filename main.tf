@@ -54,7 +54,7 @@ resource "aws_security_group" "webserver-sg" {
 
 module "nginx-cdn" {
     source  = "app.terraform.io/kevinspace/nginx-cdn/aws"
-    version = "0.1.9"
+    version = "0.1.10"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
