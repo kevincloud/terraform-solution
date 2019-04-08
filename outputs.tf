@@ -25,3 +25,7 @@ output "eu-west-host" {
 output "webserver-private-ip" {
     value = "${aws_instance.webserver.0.private_ip}"
 }
+
+output "dns-address" {
+    value = "http://${aws_route53_record.privatemodules.name}"
+}
