@@ -147,3 +147,19 @@ To kickoff a run:
 3. To the upper right, click on the **Queue Plan** button
 4. Enter a reason for running the plan, such as *First run*, and click **Queue Plan**
 
+### Conclusion: Tweaks and Teardown
+
+You can tweak with various parameters in the policies and the solution to exhibit different behaviors. Once you've completed the demo, you'll need to destroy the intrastructure.
+
+To destroy the infrastructure:
+
+1. Click on **Workspaces** located in the top navigation menu
+2. In the workspace list, click on the name of your workspace, such as *my-workspace*
+3. To the upper right, click on **Variables** in the navigation menu
+4. Under the **Environment Variables** section, click **+ Add Variable**
+5. For *key*, enter `CONFIRM_DESTROY`
+6. For *value*, enter `1`
+7. Click **Save Variable**
+8. To the upper right, click on **Settings -> Destruction and Deletion** in the navigation menu
+9. Click the **Queue destroy Plan** button
+
