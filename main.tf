@@ -14,7 +14,7 @@ module "peered-vpcs" {
 
 resource "aws_instance" "webserver" {
     ami = "${data.aws_ami.ubuntu.id}"
-    instance_type = "t2.micro"
+    instance_type = "m5.xlarge"
     key_name = "${var.key_pair_use}"
     vpc_security_group_ids = ["${aws_security_group.webserver-sg.id}"]
     user_data = "${data.template_file.user_data.rendered}"
