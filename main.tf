@@ -54,7 +54,7 @@ resource "aws_security_group" "webserver-sg" {
 
 module "nginx-cdn" {
     source  = "app.terraform.io/kevinspace/nginx-cdn/aws"
-    version = "0.1.10"
+    version = "1.0.0"
 
     aws_access_key = "${var.aws_access_key}"
     aws_secret_key = "${var.aws_secret_key}"
@@ -75,7 +75,7 @@ module "nginx-cdn" {
 
 resource "aws_route53_record" "privatemodules" {
     zone_id = "${data.aws_route53_zone.hashizone.zone_id}"
-    name = "privatemodules.${data.aws_route53_zone.hashizone.name}"
+    name = "${var.dns_hostname}.${data.aws_route53_zone.hashizone.name}"
     type = "A"
     ttl = "300"
 

@@ -1,0 +1,19 @@
+import "tfconfig"
+
+get_modules = func() {
+    modules = [][]
+    for tfconfig.modules as mod {
+        modules += [ mod.source, mod.version ]
+    }
+}
+
+required_modules = [
+    [ "app.terraform.io/kevinspace/nginx-cdn/aws", "1.0.0" ],
+    [ "app.terraform.io/kevinspace/peered-vpcs/aws", "1.0.13" ]
+]
+
+selected_modules = get_modules()
+
+use_modules = rule { required_modules in selected_modules }
+
+main = rule { use_modules }

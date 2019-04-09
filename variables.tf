@@ -17,3 +17,7 @@ variable "key_pair_usw" {
 variable "key_pair_euw" {
     description = "Key pair to use for SSH in eu-west-1"
 }
+
+variable "dns_hostname" {
+    description = "Host name to use with hashidemos.io"
+}
